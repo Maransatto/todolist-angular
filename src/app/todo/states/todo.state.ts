@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
+import { TodoItem } from "../models/todo-item.model";
 import { TodoList } from "../models/todo-list.model";
 
 @Injectable({
@@ -14,5 +15,11 @@ export class TodoState {
 
     setTodoList(todoList: TodoList) {
         this.todoList$.next(todoList);
+    }
+
+    addItems(newItems: TodoItem[]) {
+        const currentList = this.todoList$.getValue();
+        currentList.items = [...currentList.items, ...newItems];
+        this.todoList$.next(currentList);
     }
 }
