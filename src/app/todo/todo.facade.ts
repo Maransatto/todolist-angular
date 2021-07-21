@@ -26,4 +26,17 @@ export class TodoFacade {
                 this.todoState.addItems(theList);
             })
     }
+
+    addNewTask(description: string) {
+
+        const newTask = new TodoItem(description, false);
+        // been optimistic
+        this.todoState.addItems([newTask]);
+        this.todoService.postNewTask(newTask)
+            .catch(err => {
+                console.error('Error on adding new task api method');
+                this.todoState.removeItem(newTask);
+            })
+
+    }
 }
