@@ -22,4 +22,10 @@ export class TodoState {
         currentList.items = [...currentList.items, ...newItems];
         this.todoList$.next(currentList);
     }
+
+    removeItem(itemToRemove: TodoItem) {
+        const currentList = this.todoList$.getValue();
+        currentList.items = currentList.items.filter(item => item.description !== itemToRemove.description);
+        this.todoList$.next(currentList);
+    }
 }
