@@ -16,7 +16,7 @@ export class todoService {
             ]
             setTimeout(() => {
                 resolve(theList);
-            }, 2000);
+            }, 1000);
         })
     }
 
