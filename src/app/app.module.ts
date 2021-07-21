@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { TodoInputComponent } from './todo/components/todo-input/todo-input.component';
 import { TodoFilterComponent } from './todo/components/todo-filter/todo-filter.component';
 import { TodoListComponent } from './todo/components/todo-list/todo-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,9 @@ import { TodoListComponent } from './todo/components/todo-list/todo-list.compone
     TodoListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
