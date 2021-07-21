@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { todoService } from "./api/todo.service";
 import { TodoItem } from "./models/todo-item.model";
 import { TodoList, TodoStatus } from "./models/todo-list.model";
 import { TodoState } from "./states/todo.state";
@@ -10,23 +11,19 @@ import { TodoState } from "./states/todo.state";
 export class TodoFacade {
     
     constructor(
-        private todoState: TodoState
+        private todoState: TodoState,
+        private todoService: todoService
     ) { }
 
     getTodoList$(): Observable<TodoList> {
         return this.todoState.getTodoList$();
     }
 
-    setDefaultData() {
-        const defaultList = new TodoList(
-            '',
-            TodoStatus.toBeDone,
-            [
-                new TodoItem('Go to shopping', false),
-                new TodoItem('Buy a horse', false),
-                new TodoItem('Start this exam', true)
-            ]
-        )
-        this.todoState.setTodoList(defaultList);
+    loadTodoList() {
+        this.todoState.setTodoList(new TodoList());
+        this.todoService.getTodoList()
+            .then(theList => {
+                this.todoState.addItems(theList);
+            })
     }
 }

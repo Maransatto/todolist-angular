@@ -17,7 +17,7 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.todoFacade.getTodoList$().subscribe(todoList => this.todoList = todoList);
-    this.todoFacade.setDefaultData();
+    this.todoFacade.loadTodoList();
   }
 
 }
