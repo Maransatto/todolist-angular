@@ -4,7 +4,7 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Observable } from "rxjs";
 import { todoService } from "./api/todo.service";
 import { TodoItem } from "./models/todo-item.model";
-import { TodoFilter, TodoStatus } from "./models/todo-list.model";
+import { TodoFilter, TodoStatus } from "./models/todo-filter";
 import { TodoState } from "./states/todo.state";
 
 @Injectable({

@@ -1,5 +1,3 @@
-import { TodoItem } from "./todo-item.model";
-
 export class TodoFilter {
     description: string;
     status: string;

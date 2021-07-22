@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { TodoItem } from "../models/todo-item.model";
-import { TodoFilter, TodoStatus } from "../models/todo-list.model";
+import { TodoFilter, TodoStatus } from "../models/todo-filter";
 
 @Injectable({
     providedIn: 'root'

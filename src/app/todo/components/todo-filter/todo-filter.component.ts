@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TodoStatus } from '../../models/todo-list.model';
+import { TodoStatus } from '../../models/todo-filter';
 import { TodoFacade } from '../../todo.facade';
 
 @Component({
