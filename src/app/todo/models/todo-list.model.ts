@@ -2,12 +2,12 @@ import { TodoItem } from "./todo-item.model";
 
 export class TodoList {
     filter: string;
-    status: number;
+    status: string;
     items: TodoItem[];
 
     constructor(
         filter: string = '',
-        status: number = TodoStatus.toBeDone,
+        status: string = TodoStatus.toBeDone,
         items: TodoItem[] = []
     ) {
         this.filter = filter;
@@ -17,7 +17,7 @@ export class TodoList {
 }
 
 export enum TodoStatus {
-    toBeDone = 1,
-    completed = 2,
-    all = 3
+    toBeDone = '1',
+    completed = '2',
+    all = '3'
 }

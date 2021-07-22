@@ -1,18 +1,18 @@
-<form class="form row g-2">
+<form class="form row g-2" [formGroup]="form" (ngSubmit)="submitFilter()">
     <div class="col-5">
-        <input type="text" class="form-control" placeholder="Filter by task name">
+        <input type="text" class="form-control" formControlName="filter" placeholder="Filter by task name">
     </div>
     <div class="col-7">
         <div class="form-check form-check-inline form-switch">
-            <input type="text" class="form-check-input" type="radio" name="todoFilter" id="toBeDone">
+            <input class="form-check-input" type="radio" formControlName="status" id="toBeDone" value="1">
             <label for="toBeDone" class="form-check-label">To be done</label>
         </div>
         <div class="form-check form-check-inline form-switch">
-            <input type="text" class="form-check-input" type="radio" name="todoFilter" id="completed">
+            <input class="form-check-input" type="radio" formControlName="status" id="completed" value="2">
             <label for="completed" class="form-check-label">Completed</label>
         </div>
         <div class="form-check form-check-inline form-switch">
-            <input type="text" class="form-check-input" type="radio" name="todoFilter" id="all">
+            <input class="form-check-input" type="radio" formControlName="status" id="all" value="3">
             <label for="all" class="form-check-label">All</label>
         </div>
     </div>
