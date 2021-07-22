@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { Task } from "../models/todo-item.model";
+import { Task } from "../models/task.model";
 import { TodoFilter, TodoStatus } from "../models/todo-filter";
 
 @Injectable({

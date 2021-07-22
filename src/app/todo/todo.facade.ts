@@ -3,7 +3,7 @@ import { ToastrService } from "ngx-toastr";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Observable } from "rxjs";
 import { todoService } from "./api/todo.service";
-import { Task } from "./models/todo-item.model";
+import { Task } from "./models/task.model";
 import { TodoFilter, TodoStatus } from "./models/todo-filter";
 import { TodoState } from "./states/todo.state";
 
