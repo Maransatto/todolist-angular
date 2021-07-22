@@ -1,4 +1,11 @@
 <form class="form row g-2" [formGroup]="form" (ngSubmit)="submitNewTask()">
+    <div class="col-12">
+        <div class="alert alert-warning small d-flex align-items-center" role="alert">
+            <div>
+                You might see some forced "errors" from interactions just to simulate a situation where it could get an error from the API Service.
+            </div>
+        </div>
+    </div>
     <div class="col-5">
         <input type="text" class="form-control" id="todoDescription" placeholder="Task to be done" formControlName="description">
     </div>
