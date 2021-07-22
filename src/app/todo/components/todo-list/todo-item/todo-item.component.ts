@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TodoItem } from 'src/app/todo/models/todo-item.model';
+import { TodoFacade } from 'src/app/todo/todo.facade';
 
 @Component({
   selector: 'app-todo-item',
@@ -8,11 +9,17 @@ import { TodoItem } from 'src/app/todo/models/todo-item.model';
 })
 export class TodoItemComponent implements OnInit {
 
-  @Input() item!: TodoItem;
+  @Input() task!: TodoItem;
 
-  constructor() { }
+  constructor(
+    private todoFacade: TodoFacade
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  remove() {
+    this.todoFacade.removeTask(this.task);
   }
 
 }

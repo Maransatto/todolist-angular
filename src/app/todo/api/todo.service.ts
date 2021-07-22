@@ -21,6 +21,22 @@ export class todoService {
     }
 
     postNewTask(item: TodoItem): Promise<any> {
+        // we could simulate an error from the REST API here
+        return new Promise((resolve, reject) => {
+            const itWorked = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
+            setTimeout(() => {
+                if (itWorked) {
+                    resolve(true);
+                } else {
+                    reject(false);
+                }
+            }, 500);
+
+        })
+    }
+
+    removeTask(item: TodoItem): Promise<any> {
+        // we could simulate an error from the REST API here
         return new Promise((resolve, reject) => {
             const itWorked = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
             setTimeout(() => {

@@ -1,9 +1,9 @@
 <div class="row g-2 mt-3">
     <div class="col-12">
         <ul class="list-group">
-            <li *ngFor="let item of tasks"
+            <li *ngFor="let task of tasks"
                 class="list-group-item">
-                <app-todo-item [item]="item"></app-todo-item>
+                <app-todo-item [task]="task"></app-todo-item>
             </li>
         </ul>
     </div>

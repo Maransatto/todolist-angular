@@ -41,9 +41,9 @@ export class TodoState {
         this.filter();
     }
 
-    removeItem(itemToRemove: TodoItem) {
+    removeTask(taskToRemove: TodoItem) {
         let currentTasks = this.tasks$.getValue();
-        currentTasks = currentTasks.filter(item => item.id !== itemToRemove.id);
+        currentTasks = currentTasks.filter(item => item.id !== taskToRemove.id);
         this.tasks$.next(currentTasks);
         this.filter();
     }

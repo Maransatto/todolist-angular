@@ -43,8 +43,19 @@ export class TodoFacade {
         this.todoService.postNewTask(newTask)
             .catch(err => {
                 console.error('Error on adding new task via api method');
-                this.todoState.removeItem(newTask);
+                this.todoState.removeTask(newTask);
             });
+    }
+
+    removeTask(task: TodoItem) {
+        
+        // being pessimistic
+        this.todoService.removeTask(task)
+            .then(() => {
+                this.todoState.removeTask(task);
+            }).catch(err => {
+                console.error('Error on removing a task via api method');
+            })
     }
 
     changeFilter(description: string, status: TodoStatus) {

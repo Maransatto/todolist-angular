@@ -2,10 +2,10 @@
         'd-flex': true,
         'justify-content-between' : true,
         'align-items-center' : true,
-        'completed' : item.completed
+        'completed' : task.completed
      }">
-    <span>{{ item.description }}</span>
-    <div *ngIf="!item.completed; else completedTask">
+    <span>{{ task.description }}</span>
+    <div *ngIf="!task.completed; else completedTask">
         <button class="btn btn-sm btn-success">
             <em class="fa fa-user"></em>
             Complete
@@ -17,7 +17,7 @@
                 <em class="fa fa-user"></em>
                 Undo
             </button>
-            <button class="btn btn-sm btn-danger m">
+            <button class="btn btn-sm btn-danger m" (click)="remove()">
                 <em class="fa fa-user"></em>
                 Remove
             </button>
