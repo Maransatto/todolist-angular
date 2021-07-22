@@ -31,15 +31,15 @@ export class TodoFacade {
         this.todoState.setTodoFilter(new TodoFilter());
         this.todoService.getTodoList()
             .then(theList => {
-                this.todoState.addItems(theList);
+                this.todoState.addTasks(theList);
             });
     }
 
     addNewTask(description: string) {
 
-        const newTask = new TodoItem(description, false);
-        // been optimistic
-        this.todoState.addItems([newTask]);
+        const newTask = new TodoItem(0, description, false);
+        // being optimistic
+        this.todoState.addSingleTask(newTask);
         this.todoService.postNewTask(newTask)
             .catch(err => {
                 console.error('Error on adding new task via api method');

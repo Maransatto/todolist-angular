@@ -10,9 +10,9 @@ export class todoService {
         return new Promise((resolve) => {
             // supposing this is a return of a rest api
             const theList = [
-                new TodoItem('Go to shopping', false),
-                new TodoItem('Buy a horse', false),
-                new TodoItem('Start this exam', true)
+                new TodoItem(1, 'Go to shopping', false),
+                new TodoItem(2, 'Buy a horse', false),
+                new TodoItem(3, 'Start this exam', true)
             ]
             setTimeout(() => {
                 resolve(theList);

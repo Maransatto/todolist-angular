@@ -28,15 +28,22 @@ export class TodoState {
         this.filter$.next(filter);
     }
 
-    addItems(newItems: TodoItem[]) {
-        const currentTasks = [...this.tasks$.getValue(), ...newItems];
-        this.tasks$.next(currentTasks);
+    addTasks(newTasks: TodoItem[]) {
+        this.tasks$.next([...this.tasks$.getValue(), ...newTasks]);
+        this.filter();
+    }
+
+    addSingleTask(newTask: TodoItem) {
+        const tasks = this.tasks$.getValue();
+        newTask.id = tasks.length + 1;
+        tasks.push(newTask);
+        this.tasks$.next(tasks);
         this.filter();
     }
 
     removeItem(itemToRemove: TodoItem) {
         let currentTasks = this.tasks$.getValue();
-        currentTasks = currentTasks.filter(item => item.description !== itemToRemove.description);
+        currentTasks = currentTasks.filter(item => item.id !== itemToRemove.id);
         this.tasks$.next(currentTasks);
         this.filter();
     }
