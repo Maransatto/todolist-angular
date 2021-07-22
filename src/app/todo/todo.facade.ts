@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Observable } from "rxjs";
 import { todoService } from "./api/todo.service";
 import { TodoItem } from "./models/todo-item.model";
@@ -14,7 +15,8 @@ export class TodoFacade {
     constructor(
         private todoState: TodoState,
         private todoService: todoService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private ngxService: NgxUiLoaderService
     ) { }
 
     getTodoFilter$(): Observable<TodoFilter> {
@@ -31,9 +33,12 @@ export class TodoFacade {
 
     loadTodoList() {
         this.todoState.setTodoFilter(new TodoFilter());
+        this.ngxService.start();
         this.todoService.getTodoList()
             .then(theList => {
                 this.todoState.addTasks(theList);
+            }).finally(() => {
+                this.ngxService.stop();
             });
     }
 
@@ -55,12 +60,15 @@ export class TodoFacade {
     removeTask(task: TodoItem) {
         
         // being pessimistic
+        this.ngxService.start();
         this.todoService.removeTask(task)
             .then(() => {
                 this.todoState.removeTask(task);
                 this.toastr.success(`Task Removed: ${task.description}`, 'Success');
             }).catch(err => {
                 this.toastr.warning('There was an error on trying to remove. Please try again', 'Oops');
+            }).finally(() => {
+                this.ngxService.stop();
             })
     }
 
