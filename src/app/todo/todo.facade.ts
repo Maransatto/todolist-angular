@@ -19,6 +19,10 @@ export class TodoFacade {
         return this.todoState.getTodoList$();
     }
 
+    getTasks$(): Observable<TodoItem[]> {
+        return this.todoState.getTasks$();
+    }
+
     loadTodoList() {
         this.todoState.setTodoList(new TodoList());
         this.todoService.getTodoList()
@@ -38,5 +42,9 @@ export class TodoFacade {
                 this.todoState.removeItem(newTask);
             })
 
+    }
+
+    filterByStatus(description: string, status: TodoStatus) {
+        this.todoState.filter(description, status);
     }
 }
