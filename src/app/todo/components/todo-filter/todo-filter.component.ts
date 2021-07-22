@@ -32,7 +32,6 @@ export class TodoFilterComponent implements OnInit {
   submitFilter() {
     const { description, status } = this.form.value;
     this.todoFacade.changeFilter(description, status);
-    this.todoFacade.applyFilter();
   }
 
 }
