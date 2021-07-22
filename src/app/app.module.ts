@@ -10,6 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoItemComponent } from './todo/components/todo-list/todo-item/todo-item.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { SignupComponent } from './user/component/signup/signup.component';
+import { AppRoutingModule } from './app-routing.module';
+import { SigninComponent } from './user/component/signin/signin.component';
+import { TodoComponent } from './todo/components/todo/todo.component';
 
 
 @NgModule({
@@ -18,10 +22,14 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     TodoInputComponent,
     TodoFilterComponent,
     TodoListComponent,
-    TodoItemComponent
+    TodoItemComponent,
+    SignupComponent,
+    SigninComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
