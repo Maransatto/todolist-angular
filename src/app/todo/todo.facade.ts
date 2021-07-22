@@ -58,6 +58,16 @@ export class TodoFacade {
             })
     }
 
+    completeTask(task: TodoItem, completed: boolean) {
+        // being pessimistic
+        this.todoService.completeTask(task)
+            .then(() => {
+                this.todoState.completeTask(task, completed);
+            }).catch(err => {
+                console.error('Error on completing/undoing a task via api method');
+            })
+    }
+
     changeFilter(description: string, status: TodoStatus) {
         this.todoState.setTodoFilter(new TodoFilter(description, status));
         this.applyFilter();

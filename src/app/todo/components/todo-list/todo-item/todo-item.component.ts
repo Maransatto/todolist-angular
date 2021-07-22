@@ -22,4 +22,8 @@ export class TodoItemComponent implements OnInit {
     this.todoFacade.removeTask(this.task);
   }
 
+  complete(completed: boolean) {
+    this.todoFacade.completeTask(this.task, completed);
+  }
+
 }

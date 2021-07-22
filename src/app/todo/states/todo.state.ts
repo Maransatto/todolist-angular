@@ -48,6 +48,15 @@ export class TodoState {
         this.filter();
     }
 
+    completeTask(task: TodoItem, completed: boolean) {
+        const currentTasks = this.tasks$.getValue();
+        const index = currentTasks.findIndex(item => item.id === task.id);
+        task.completed = completed;
+        currentTasks[index] = task;
+        this.tasks$.next(currentTasks);
+        this.filter();
+    }
+
     filter() {
         const { description, status } = this.filter$.getValue();
         
