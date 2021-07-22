@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Task } from 'src/app/todo/models/todo-item.model';
+import { Task } from 'src/app/todo/models/task.model';
 import { TodoFacade } from 'src/app/todo/todo.facade';
 
 @Component({
