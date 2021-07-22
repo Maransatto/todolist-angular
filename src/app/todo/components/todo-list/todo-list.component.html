@@ -1,24 +1,10 @@
 <div class="row g-2 mt-3">
     <div class="col-12">
         <ul class="list-group">
-            <li
-                class="list-group-item d-flex justify-content-between align-items-center"
-                *ngFor="let item of todoList.items">
-                <span>{{ item.description }}</span>
-                <div>
-                    <button class="btn btn-sm btn-success me-2">
-                        <em class="fa fa-user"></em>
-                        Complete
-                    </button>
-                    <button class="btn btn-sm btn-warning me-2">
-                        <em class="fa fa-user"></em>
-                        Undo
-                    </button>
-                    <button class="btn btn-sm btn-danger m">
-                        <em class="fa fa-user"></em>
-                        Remove
-                    </button>
-                </div>
+            <li app-todo-item
+                *ngFor="let item of todoList.items"
+                [item]="item"
+                class="list-group-item d-flex justify-content-between align-items-center">
             </li>
         </ul>
     </div>
