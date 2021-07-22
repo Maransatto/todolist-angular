@@ -32,7 +32,6 @@ export class TodoFacade {
         this.todoService.getTodoList()
             .then(theList => {
                 this.todoState.addItems(theList);
-                this.applyFilter();
             });
     }
 
@@ -42,9 +41,6 @@ export class TodoFacade {
         // been optimistic
         this.todoState.addItems([newTask]);
         this.todoService.postNewTask(newTask)
-            .then(() => {
-                this.applyFilter();
-            })
             .catch(err => {
                 console.error('Error on adding new task via api method');
                 this.todoState.removeItem(newTask);

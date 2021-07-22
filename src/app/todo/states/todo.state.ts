@@ -31,12 +31,14 @@ export class TodoState {
     addItems(newItems: TodoItem[]) {
         const currentTasks = [...this.tasks$.getValue(), ...newItems];
         this.tasks$.next(currentTasks);
+        this.filter();
     }
 
     removeItem(itemToRemove: TodoItem) {
         let currentTasks = this.tasks$.getValue();
         currentTasks = currentTasks.filter(item => item.description !== itemToRemove.description);
         this.tasks$.next(currentTasks);
+        this.filter();
     }
 
     filter() {
