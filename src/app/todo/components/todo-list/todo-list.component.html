@@ -1,5 +1,5 @@
 <div class="row g-2 mt-3">
-    <div class="col-12">
+    <div class="col-12" *ngIf="tasks.length; else noRegistersFound">
         <ul class="list-group">
             <li *ngFor="let task of tasks"
                 class="list-group-item">
@@ -7,4 +7,10 @@
             </li>
         </ul>
     </div>
+    <ng-template #noRegistersFound>
+        <div class="col-12 text-center mt-4">
+            <small class="text-muted">No Registers Found</small>
+        </div>
+    </ng-template>
+    
 </div>
