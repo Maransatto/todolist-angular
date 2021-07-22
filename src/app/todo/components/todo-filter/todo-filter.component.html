@@ -1,6 +1,6 @@
-<form class="form row g-2" [formGroup]="form" (ngSubmit)="submitFilter()">
+<form class="form row g-2" [formGroup]="form" (change)="submitFilter()">
     <div class="col-5">
-        <input type="text" class="form-control" formControlName="filter" placeholder="Filter by task name">
+        <input type="text" class="form-control" formControlName="description" placeholder="Filter by task name" (input)="submitFilter()">
     </div>
     <div class="col-7">
         <div class="form-check form-check-inline form-switch">

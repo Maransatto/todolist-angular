@@ -22,18 +22,20 @@ export class TodoFilterComponent implements OnInit {
     this.todoFacade.getTodoList$().subscribe(todoList => {
       this.todoList = todoList;
       this.createForm();
+      this.submitFilter();
     });
   }
 
   createForm(): void {
     this.form = this.formBuilder.group({
-      filter: [null],
+      description: [null],
       status: [TodoStatus.toBeDone]
     })
   }
 
   submitFilter() {
-    
+    const { description, status } = this.form.value;
+    this.todoFacade.filterByStatus(description, status);
   }
 
 }
