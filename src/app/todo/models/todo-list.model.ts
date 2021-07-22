@@ -1,18 +1,15 @@
 import { TodoItem } from "./todo-item.model";
 
-export class TodoList {
-    filter: string;
+export class TodoFilter {
+    description: string;
     status: string;
-    items: TodoItem[];
 
     constructor(
-        filter: string = '',
-        status: string = TodoStatus.toBeDone,
-        items: TodoItem[] = []
+        description: string = '',
+        status: string = TodoStatus.toBeDone
     ) {
-        this.filter = filter;
+        this.description = description;
         this.status = status;
-        this.items = items
     }
 }
 

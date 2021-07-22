@@ -1,42 +1,48 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { TodoItem } from "../models/todo-item.model";
-import { TodoList, TodoStatus } from "../models/todo-list.model";
+import { TodoFilter, TodoStatus } from "../models/todo-list.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class TodoState {
 
-    private todoList$ = new BehaviorSubject<TodoList>(new TodoList());
+    private filter$ = new BehaviorSubject<TodoFilter>(new TodoFilter());
+    private tasks$ = new BehaviorSubject<TodoItem[]>([]);
     private filteredTasks$ = new BehaviorSubject<TodoItem[]>([]);
 
-    getTodoList$(): Observable<TodoList> {
-        return this.todoList$.asObservable();
+    getTodoFilter$(): Observable<TodoFilter> {
+        return this.filter$.asObservable();
     }
 
     getTasks$(): Observable<TodoItem[]> {
+        return this.tasks$.asObservable();
+    }
+
+    getFilteredTasks$(): Observable<TodoItem[]> {
         return this.filteredTasks$.asObservable();
     }
 
-    setTodoList(todoList: TodoList) {
-        this.todoList$.next(todoList);
+    setTodoFilter(filter: TodoFilter) {
+        this.filter$.next(filter);
     }
 
     addItems(newItems: TodoItem[]) {
-        const currentList = this.todoList$.getValue();
-        currentList.items = [...currentList.items, ...newItems];
-        this.todoList$.next(currentList);
+        const currentTasks = [...this.tasks$.getValue(), ...newItems];
+        this.tasks$.next(currentTasks);
     }
 
     removeItem(itemToRemove: TodoItem) {
-        const currentList = this.todoList$.getValue();
-        currentList.items = currentList.items.filter(item => item.description !== itemToRemove.description);
-        this.todoList$.next(currentList);
+        let currentTasks = this.tasks$.getValue();
+        currentTasks = currentTasks.filter(item => item.description !== itemToRemove.description);
+        this.tasks$.next(currentTasks);
     }
 
-    filter(description: string, status: TodoStatus) {
-        const tasks = this.todoList$.getValue().items.filter(
+    filter() {
+        const { description, status } = this.filter$.getValue();
+        
+        const tasks = this.tasks$.getValue().filter(
             item => {
                 return ((status === TodoStatus.all) ||
                        (item.completed  && status === TodoStatus.completed) ||

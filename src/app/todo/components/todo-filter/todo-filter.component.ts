@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TodoList, TodoStatus } from '../../models/todo-list.model';
+import { TodoStatus } from '../../models/todo-list.model';
 import { TodoFacade } from '../../todo.facade';
 
 @Component({
@@ -10,7 +10,6 @@ import { TodoFacade } from '../../todo.facade';
 })
 export class TodoFilterComponent implements OnInit {
 
-  todoList!: TodoList;
   form!: FormGroup;
 
   constructor(
@@ -19,11 +18,8 @@ export class TodoFilterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.todoFacade.getTodoList$().subscribe(todoList => {
-      this.todoList = todoList;
       this.createForm();
       this.submitFilter();
-    });
   }
 
   createForm(): void {
@@ -35,7 +31,8 @@ export class TodoFilterComponent implements OnInit {
 
   submitFilter() {
     const { description, status } = this.form.value;
-    this.todoFacade.filterByStatus(description, status);
+    this.todoFacade.changeFilter(description, status);
+    this.todoFacade.applyFilter();
   }
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { todoService } from "./api/todo.service";
 import { TodoItem } from "./models/todo-item.model";
-import { TodoList, TodoStatus } from "./models/todo-list.model";
+import { TodoFilter, TodoStatus } from "./models/todo-list.model";
 import { TodoState } from "./states/todo.state";
 
 @Injectable({
@@ -15,20 +15,25 @@ export class TodoFacade {
         private todoService: todoService
     ) { }
 
-    getTodoList$(): Observable<TodoList> {
-        return this.todoState.getTodoList$();
+    getTodoFilter$(): Observable<TodoFilter> {
+        return this.todoState.getTodoFilter$();
     }
 
     getTasks$(): Observable<TodoItem[]> {
         return this.todoState.getTasks$();
     }
 
+    getFilteredTasks$(): Observable<TodoItem[]> {
+        return this.todoState.getFilteredTasks$();
+    }
+
     loadTodoList() {
-        this.todoState.setTodoList(new TodoList());
+        this.todoState.setTodoFilter(new TodoFilter());
         this.todoService.getTodoList()
             .then(theList => {
                 this.todoState.addItems(theList);
-            })
+                this.applyFilter();
+            });
     }
 
     addNewTask(description: string) {
@@ -37,14 +42,21 @@ export class TodoFacade {
         // been optimistic
         this.todoState.addItems([newTask]);
         this.todoService.postNewTask(newTask)
-            .catch(err => {
-                console.error('Error on adding new task api method');
-                this.todoState.removeItem(newTask);
+            .then(() => {
+                this.applyFilter();
             })
-
+            .catch(err => {
+                console.error('Error on adding new task via api method');
+                this.todoState.removeItem(newTask);
+            });
     }
 
-    filterByStatus(description: string, status: TodoStatus) {
-        this.todoState.filter(description, status);
+    changeFilter(description: string, status: TodoStatus) {
+        this.todoState.setTodoFilter(new TodoFilter(description, status));
+        this.applyFilter();
+    }
+
+    applyFilter() {
+        this.todoState.filter();
     }
 }
