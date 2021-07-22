@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { ToastrService } from "ngx-toastr";
 import { Observable } from "rxjs";
 import { todoService } from "./api/todo.service";
 import { TodoItem } from "./models/todo-item.model";
@@ -12,7 +13,8 @@ export class TodoFacade {
     
     constructor(
         private todoState: TodoState,
-        private todoService: todoService
+        private todoService: todoService,
+        private toastr: ToastrService
     ) { }
 
     getTodoFilter$(): Observable<TodoFilter> {
@@ -41,8 +43,11 @@ export class TodoFacade {
         // being optimistic
         this.todoState.addSingleTask(newTask);
         this.todoService.postNewTask(newTask)
+            .then(() => {
+                this.toastr.success(`New Task Added: ${description}`, 'Success');
+            })
             .catch(err => {
-                console.error('Error on adding new task via api method');
+                this.toastr.warning('There was an error on trying to add a new task. Please try again', 'Oops');
                 this.todoState.removeTask(newTask);
             });
     }
@@ -53,8 +58,9 @@ export class TodoFacade {
         this.todoService.removeTask(task)
             .then(() => {
                 this.todoState.removeTask(task);
+                this.toastr.success(`Task Removed: ${task.description}`, 'Success');
             }).catch(err => {
-                console.error('Error on removing a task via api method');
+                this.toastr.warning('There was an error on trying to remove. Please try again', 'Oops');
             })
     }
 
@@ -64,7 +70,7 @@ export class TodoFacade {
             .then(() => {
                 this.todoState.completeTask(task, completed);
             }).catch(err => {
-                console.error('Error on completing/undoing a task via api method');
+                this.toastr.warning('There was an error on trying to complete. Please try again', 'Oops');
             })
     }
 
