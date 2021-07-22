@@ -3,7 +3,7 @@ import { ToastrService } from "ngx-toastr";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Observable } from "rxjs";
 import { todoService } from "./api/todo.service";
-import { TodoItem } from "./models/todo-item.model";
+import { Task } from "./models/todo-item.model";
 import { TodoFilter, TodoStatus } from "./models/todo-filter";
 import { TodoState } from "./states/todo.state";
 
@@ -23,11 +23,11 @@ export class TodoFacade {
         return this.todoState.getTodoFilter$();
     }
 
-    getTasks$(): Observable<TodoItem[]> {
+    getTasks$(): Observable<Task[]> {
         return this.todoState.getTasks$();
     }
 
-    getFilteredTasks$(): Observable<TodoItem[]> {
+    getFilteredTasks$(): Observable<Task[]> {
         return this.todoState.getFilteredTasks$();
     }
 
@@ -44,7 +44,7 @@ export class TodoFacade {
 
     addNewTask(description: string) {
 
-        const newTask = new TodoItem(0, description, false);
+        const newTask = new Task(0, description, false);
         // being optimistic
         this.todoState.addSingleTask(newTask);
         this.todoService.postNewTask(newTask)
@@ -57,7 +57,7 @@ export class TodoFacade {
             });
     }
 
-    removeTask(task: TodoItem) {
+    removeTask(task: Task) {
         
         // being pessimistic
         this.ngxService.start();
@@ -72,7 +72,7 @@ export class TodoFacade {
             })
     }
 
-    completeTask(task: TodoItem, completed: boolean) {
+    completeTask(task: Task, completed: boolean) {
         // being pessimistic
         this.todoService.completeTask(task)
             .then(() => {

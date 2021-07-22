@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoItem } from '../../models/todo-item.model';
+import { Task } from '../../models/todo-item.model';
 import { TodoFacade } from '../../todo.facade';
 
 @Component({
@@ -9,7 +9,7 @@ import { TodoFacade } from '../../todo.facade';
 })
 export class TodoListComponent implements OnInit {
 
-  tasks!: TodoItem[];
+  tasks!: Task[];
 
   constructor(
     private todoFacade: TodoFacade

@@ -1,18 +1,18 @@
 import { Injectable } from "@angular/core";
-import { TodoItem } from "../models/todo-item.model";
+import { Task } from "../models/todo-item.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class todoService {
     
-    getTodoList(): Promise<TodoItem[]> {
+    getTodoList(): Promise<Task[]> {
         return new Promise((resolve) => {
             // supposing this is a return of a rest api
             const theList = [
-                new TodoItem(1, 'Go to shopping', false),
-                new TodoItem(2, 'Buy a horse', false),
-                new TodoItem(3, 'Start this exam', true)
+                new Task(1, 'Go to shopping', false),
+                new Task(2, 'Buy a horse', false),
+                new Task(3, 'Start this exam', true)
             ]
             setTimeout(() => {
                 resolve(theList);
@@ -20,7 +20,7 @@ export class todoService {
         })
     }
 
-    postNewTask(item: TodoItem): Promise<any> {
+    postNewTask(task: Task): Promise<any> {
         // we could simulate an error from the REST API here
         return new Promise((resolve, reject) => {
             const itWorked = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
@@ -35,7 +35,7 @@ export class todoService {
         })
     }
 
-    removeTask(item: TodoItem): Promise<any> {
+    removeTask(task: Task): Promise<any> {
         // we could simulate an error from the REST API here
         return new Promise((resolve, reject) => {
             const itWorked = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
@@ -50,7 +50,7 @@ export class todoService {
         })
     }
 
-    completeTask(item: TodoItem): Promise<any> {
+    completeTask(task: Task): Promise<any> {
         // we could simulate an error from the REST API here
         return new Promise((resolve, reject) => {
             const itWorked = Math.floor(Math.random() * (1 - 0 + 1)) + 0;

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { TodoItem } from "../models/todo-item.model";
+import { Task } from "../models/todo-item.model";
 import { TodoFilter, TodoStatus } from "../models/todo-filter";
 
 @Injectable({
@@ -9,18 +9,18 @@ import { TodoFilter, TodoStatus } from "../models/todo-filter";
 export class TodoState {
 
     private filter$ = new BehaviorSubject<TodoFilter>(new TodoFilter());
-    private tasks$ = new BehaviorSubject<TodoItem[]>([]);
-    private filteredTasks$ = new BehaviorSubject<TodoItem[]>([]);
+    private tasks$ = new BehaviorSubject<Task[]>([]);
+    private filteredTasks$ = new BehaviorSubject<Task[]>([]);
 
     getTodoFilter$(): Observable<TodoFilter> {
         return this.filter$.asObservable();
     }
 
-    getTasks$(): Observable<TodoItem[]> {
+    getTasks$(): Observable<Task[]> {
         return this.tasks$.asObservable();
     }
 
-    getFilteredTasks$(): Observable<TodoItem[]> {
+    getFilteredTasks$(): Observable<Task[]> {
         return this.filteredTasks$.asObservable();
     }
 
@@ -28,12 +28,12 @@ export class TodoState {
         this.filter$.next(filter);
     }
 
-    addTasks(newTasks: TodoItem[]) {
+    addTasks(newTasks: Task[]) {
         this.tasks$.next([...this.tasks$.getValue(), ...newTasks]);
         this.filter();
     }
 
-    addSingleTask(newTask: TodoItem) {
+    addSingleTask(newTask: Task) {
         const tasks = this.tasks$.getValue();
         newTask.id = tasks.length + 1;
         tasks.push(newTask);
@@ -41,14 +41,14 @@ export class TodoState {
         this.filter();
     }
 
-    removeTask(taskToRemove: TodoItem) {
+    removeTask(taskToRemove: Task) {
         let currentTasks = this.tasks$.getValue();
         currentTasks = currentTasks.filter(item => item.id !== taskToRemove.id);
         this.tasks$.next(currentTasks);
         this.filter();
     }
 
-    completeTask(task: TodoItem, completed: boolean) {
+    completeTask(task: Task, completed: boolean) {
         const currentTasks = this.tasks$.getValue();
         const index = currentTasks.findIndex(item => item.id === task.id);
         task.completed = completed;
