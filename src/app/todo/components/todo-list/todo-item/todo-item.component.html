@@ -7,18 +7,18 @@
     <span>{{ task.description }}</span>
     <div *ngIf="!task.completed; else completedTask">
         <button class="btn btn-sm btn-success" (click)="complete(true)">
-            <em class="fa fa-user"></em>
+            <em class="fas fa-check me-2"></em>
             Complete
         </button>
     </div>
     <ng-template #completedTask>
         <div>
             <button class="btn btn-sm btn-warning me-2" (click)="complete(false)">
-                <em class="fa fa-user"></em>
+                <em class="fas fa-undo me-2"></em>
                 Undo
             </button>
             <button class="btn btn-sm btn-danger m" (click)="remove()">
-                <em class="fa fa-user"></em>
+                <em class="fas fa-trash me-2"></em>
                 Remove
             </button>
         </div>
