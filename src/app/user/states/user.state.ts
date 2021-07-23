@@ -35,11 +35,15 @@ export class UserState {
     }
 
     setActiveUser(user: User): void {
-        localStorage.setItem('loggedInUser', 
+        localStorage.setItem('loggedInUser',
             JSON.stringify({
                 id: user.id,
                 name: user.name
             }));
         this.activeUser$.next(user);
+    }
+
+    logout() {
+        localStorage.removeItem('loggedInUser');
     }
 }

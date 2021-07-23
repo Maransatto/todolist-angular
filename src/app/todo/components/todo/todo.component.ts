@@ -27,4 +27,8 @@ export class TodoComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  logout() {
+    this.userFacade.logout();
+  }
+
 }

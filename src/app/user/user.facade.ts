@@ -60,4 +60,8 @@ export class UserFacade {
         this.userState.setActiveUser(user);
     }
 
+    logout() {
+        this.userState.logout();
+    }
+
 }
