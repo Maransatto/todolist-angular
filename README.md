@@ -32,3 +32,4 @@ https://dev-academy.com/angular-architecture-best-practices/#problems-of-scalabi
 
 > Total Time Spent: 11:47
 
+I recommend to check the progress by the commit history.
