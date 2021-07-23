@@ -22,6 +22,10 @@ export class UserFacade {
         return this.userState.getUsers$();
     }
 
+    getActiveUser$(): Observable<User> {
+        return this.userState.getActiveUser$();
+    }
+
     addNewUser(name: string, email: string, password: string, checkPassword: string) {
 
         if (password !== checkPassword) {
@@ -40,6 +44,16 @@ export class UserFacade {
             }).catch((err) => {
                 this.toastr.error('Error on registering new user', 'Oops')
             })
+    }
+
+    signin(email: string, password: string) {
+        const user = this.userState.signin(email, password);
+        if (user) {
+            this.userState.setActiveUser(user);
+            this.router.navigate(['/todo']);
+        } else {
+            this.toastr.warning(`Invalid password or user e-mail.`, 'Not Possible')
+        }
     }
 
 }
