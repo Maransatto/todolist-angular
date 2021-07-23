@@ -56,4 +56,8 @@ export class UserFacade {
         }
     }
 
+    setActiveUser(user: User) {
+        this.userState.setActiveUser(user);
+    }
+
 }
