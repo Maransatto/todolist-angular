@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Observable } from "rxjs";
-import { todoService } from "./api/todo.service";
+import { TodoService } from "./api/todo.service";
 import { Task } from "./models/task.model";
 import { TodoFilter, TodoStatus } from "./models/todo-filter";
 import { TodoState } from "./states/todo.state";
@@ -14,7 +14,7 @@ export class TodoFacade {
     
     constructor(
         private todoState: TodoState,
-        private todoService: todoService,
+        private todoService: TodoService,
         private toastr: ToastrService,
         private ngxService: NgxUiLoaderService
     ) { }

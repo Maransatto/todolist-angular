@@ -4,7 +4,7 @@ import { Task } from "../models/task.model";
 @Injectable({
     providedIn: 'root'
 })
-export class todoService {
+export class TodoService {
     
     getTodoList(): Promise<Task[]> {
         return new Promise((resolve) => {
