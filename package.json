@@ -18,6 +18,8 @@
     "@angular/platform-browser": "~12.1.2",
     "@angular/platform-browser-dynamic": "~12.1.2",
     "@angular/router": "~12.1.2",
+    "@ngrx/effects": "^12.4.0",
+    "@ngrx/store": "^12.4.0",
     "bootstrap": "^5.0.2",
     "ngx-toastr": "^14.0.0",
     "ngx-ui-loader": "^11.0.0",
