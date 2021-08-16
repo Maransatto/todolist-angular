@@ -32,4 +32,10 @@ https://dev-academy.com/angular-architecture-best-practices/#problems-of-scalabi
 
 > Total Time Spent: 11:47
 
+---
+
+### Starting with NgRx
+
+- August 16 -> 8:29 PM
+
 I recommend to check the progress by the commit history.
