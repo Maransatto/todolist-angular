@@ -22,7 +22,8 @@ export const tasksReducer = createReducer(
         }
     }),
     on(TodoActions.fetchTasks, state => state),
-    on(TodoActions.storeTask, state => state)
+    on(TodoActions.storeTask, state => state),
+    on(TodoActions.storeTaskSuccess, state => state)
 )
 
 export function reducer(state: State | undefined, action: Action) {
