@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { TodoInputComponent } from './todo/components/todo-input/todo-input.component';
 import { TodoFilterComponent } from './todo/components/todo-filter/todo-filter.component';
@@ -32,6 +33,7 @@ import * as fromApp from './state/app.state';
   imports: [
     BrowserModule,
     StoreModule.forRoot(fromApp.appReducer),
+    StoreDevtoolsModule.instrument(),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
