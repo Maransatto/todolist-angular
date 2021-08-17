@@ -31,31 +31,31 @@ export class TodoFacade {
         return this.todoState.getFilteredTasks$();
     }
 
-    loadTodoList() {
-        this.todoState.setTodoFilter(new TodoFilter());
-        this.ngxService.start();
-        // this.todoService.getTasks()
-        //     .then(theList => {
-        //         this.todoState.addTasks(theList);
-        //     }).finally(() => {
-        //         this.ngxService.stop();
-        //     });
-    }
+    // loadTodoList() {
+    //     this.todoState.setTodoFilter(new TodoFilter());
+    //     this.ngxService.start();
+    //     // this.todoService.getTasks()
+    //     //     .then(theList => {
+    //     //         this.todoState.addTasks(theList);
+    //     //     }).finally(() => {
+    //     //         this.ngxService.stop();
+    //     //     });
+    // }
 
-    addNewTask(description: string) {
+    // addNewTask(description: string) {
 
-        const newTask = new Task(0, description, false);
-        // being optimistic
-        this.todoState.addSingleTask(newTask);
-        this.todoService.postNewTask(newTask)
-            .then(() => {
-                this.toastr.success(`New Task Added: ${description}`, 'Success');
-            })
-            .catch(err => {
-                this.toastr.warning('There was an error on trying to add a new task. Please try again', 'Oops');
-                this.todoState.removeTask(newTask);
-            });
-    }
+    //     const newTask = new Task(0, description, false);
+    //     // being optimistic
+    //     this.todoState.addSingleTask(newTask);
+    //     this.todoService.postNewTask(newTask)
+    //         .then(() => {
+    //             this.toastr.success(`New Task Added: ${description}`, 'Success');
+    //         })
+    //         .catch(err => {
+    //             this.toastr.warning('There was an error on trying to add a new task. Please try again', 'Oops');
+    //             this.todoState.removeTask(newTask);
+    //         });
+    // }
 
     removeTask(task: Task) {
         
