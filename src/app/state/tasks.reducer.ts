@@ -1,4 +1,4 @@
-import { createReducer, on} from '@ngrx/store';
+import { createReducer, on, Action} from '@ngrx/store';
 
 import * as TodoActions from './todo.actions';
 import { Task } from '../todo/models/task.model';
@@ -8,11 +8,7 @@ export interface State {
 }
 
 export const initialState: State = {
-    tasks: [
-        new Task(1, 'Understand NgRx core concepts', true),
-        new Task(2, 'Refactor this entire app', false),
-        new Task(3, 'Send it to Michal', false),
-    ]
+    tasks: []
 }
 
 export const tasksReducer = createReducer(
@@ -28,3 +24,7 @@ export const tasksReducer = createReducer(
     on(TodoActions.fetchTasks, state => state),
     on(TodoActions.storeTask, state => state)
 )
+
+export function reducer(state: State | undefined, action: Action) {
+    return tasksReducer(state, action);
+}

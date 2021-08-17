@@ -1,4 +1,4 @@
-import { createReducer, on} from '@ngrx/store';
+import { createReducer, on, Action} from '@ngrx/store';
 
 import * as TodoActions from './todo.actions';
 import { TodoFilter, TodoStatus } from '../todo/models/todo-filter';
@@ -15,3 +15,7 @@ export const filterReducer = createReducer(
     initialState,
     on(TodoActions.setFilter, (state, { filter }) => ({ filter }))
 )
+
+export function reducer(state: State | undefined, action: Action) {
+    return filterReducer(state, action);
+}
