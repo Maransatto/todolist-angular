@@ -11,8 +11,10 @@ export class TodoService {
     getTasks(): Observable<Task[]> {
         return of([
             new Task(1, 'Understand NgRx core concepts', true),
-            new Task(2, 'Refactor this entire app', false),
-            new Task(3, 'Send it to Michal', false),
+            new Task(2, 'Refactor the TODO Feature to use NgRx', true),
+            new Task(3, 'Refactor the Auth Feature to use NgRx and other best practices', false),
+            new Task(4, 'Send it to Michal', true),
+            new Task(5, 'Michal: Hire Maransatto, he deserves it!', false),
         ]).pipe(
             timeout(1000)
         );
