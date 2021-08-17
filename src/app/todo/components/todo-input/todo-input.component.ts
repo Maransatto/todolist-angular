@@ -1,23 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TodoFacade } from '../../todo.facade';
+import { select, Store } from '@ngrx/store';
 
+import * as fromApp from '../../../state/app.state';
+import * as TodoActions from '../../../state/todo.actions';
+import { Task } from '../../models/task.model';
+import { Subscription } from 'rxjs';
+import { selectTaskIncrementId } from 'src/app/state/todo.selectors';
 @Component({
   selector: 'app-todo-input',
   templateUrl: './todo-input.component.html',
   styleUrls: ['./todo-input.component.css']
 })
-export class TodoInputComponent implements OnInit {
+export class TodoInputComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
+  subscription!: Subscription;
+  nextId: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
-    private todoFacade: TodoFacade
+    private store: Store<fromApp.AppState>
   ) { }
 
   ngOnInit(): void {
     this.createForm();
+    this.subscription = this.store.pipe(select(selectTaskIncrementId)).subscribe(nextId => this.nextId = nextId);
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   createForm(): void {
@@ -32,7 +46,7 @@ export class TodoInputComponent implements OnInit {
     }
 
     const { description } = this.form.value;
-    this.todoFacade.addNewTask(description);
+    this.store.dispatch(TodoActions.addTask({ task: new Task(this.nextId, description, false) }))
   }
 
 }

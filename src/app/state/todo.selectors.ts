@@ -21,3 +21,5 @@ export const selectFilteredTasks = createSelector(
         })
     }
 );
+
+export const selectTaskIncrementId = createSelector(selectTasks, (taskState: { tasks: Task[] }) => taskState.tasks.length + 1);
