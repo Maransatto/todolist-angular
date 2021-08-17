@@ -56,7 +56,7 @@ export class TodoService {
                 } else {
                     subscriber.error(false);
                 }
-            }, 1000);
+            }, 500);
         });
     }
 
