@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-
-import * as fromApp from '../../../state/app.state';
-import * as TodoActions from '../../../state/todo.actions';
 import { Task } from '../../models/task.model';
 import { Subscription } from 'rxjs';
 import { selectTaskIncrementId } from 'src/app/state/todo.selectors';
+
+import * as fromApp from '../../../state/app.state';
+import * as TodoActions from '../../../state/todo.actions';
+
 @Component({
   selector: 'app-todo-input',
   templateUrl: './todo-input.component.html',
