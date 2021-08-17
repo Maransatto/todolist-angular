@@ -1,4 +1,6 @@
 import { Injectable } from "@angular/core";
+import { Observable, of } from "rxjs";
+import { timeout } from "rxjs/operators";
 import { Task } from "../models/task.model";
 
 @Injectable({
@@ -6,18 +8,14 @@ import { Task } from "../models/task.model";
 })
 export class TodoService {
     
-    getTodoList(): Promise<Task[]> {
-        return new Promise((resolve) => {
-            // supposing this is a return of a rest api
-            const theList = [
-                new Task(1, 'Go to shopping', false),
-                new Task(2, 'Buy a horse', false),
-                new Task(3, 'Start this exam', true)
-            ]
-            setTimeout(() => {
-                resolve(theList);
-            }, 1000);
-        })
+    getTasks(): Observable<Task[]> {
+        return of([
+            new Task(1, 'Understand NgRx core concepts', true),
+            new Task(2, 'Refactor this entire app', false),
+            new Task(3, 'Send it to Michal', false),
+        ]).pipe(
+            timeout(1000)
+        );
     }
 
     postNewTask(task: Task): Promise<any> {

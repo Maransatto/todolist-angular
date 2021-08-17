@@ -34,12 +34,12 @@ export class TodoFacade {
     loadTodoList() {
         this.todoState.setTodoFilter(new TodoFilter());
         this.ngxService.start();
-        this.todoService.getTodoList()
-            .then(theList => {
-                this.todoState.addTasks(theList);
-            }).finally(() => {
-                this.ngxService.stop();
-            });
+        // this.todoService.getTasks()
+        //     .then(theList => {
+        //         this.todoState.addTasks(theList);
+        //     }).finally(() => {
+        //         this.ngxService.stop();
+        //     });
     }
 
     addNewTask(description: string) {
