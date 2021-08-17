@@ -10,7 +10,7 @@ import * as TodoActions from './todo.actions';
 export class TodoEffects {
 
     fetchTasks$ = createEffect(() => this.actions$.pipe(
-        ofType(TodoActions.TODO_FETCH_TASKS),
+        ofType(TodoActions.fetchTasks),
         switchMap(() =>  this.todoService.getTasks()
             .pipe(
                 map(tasks => {
