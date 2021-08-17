@@ -26,7 +26,7 @@ export class TodoItemComponent implements OnInit {
   }
 
   complete(completed: boolean) {
-    this.store.dispatch(TodoActions.completeTask({ task: this.task, completed }));
+    this.store.dispatch(TodoActions.startCompletingTask({ task: this.task, completed }));
   }
 
 }
