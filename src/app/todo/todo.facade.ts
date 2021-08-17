@@ -31,13 +31,13 @@ export class TodoFacade {
         return this.todoState.getFilteredTasks$();
     }
 
-    completeTask(task: Task, completed: boolean) {
-        // being pessimistic
-        this.todoService.completeTask(task)
-            .then(() => {
-                this.todoState.completeTask(task, completed);
-            }).catch(err => {
-                this.toastr.warning('There was an error on trying to complete. Please try again', 'Oops');
-            })
-    }
+    // completeTask(task: Task, completed: boolean) {
+    //     // being pessimistic
+    //     this.todoService.completeTask(task)
+    //         .then(() => {
+    //             this.todoState.completeTask(task, completed);
+    //         }).catch(err => {
+    //             this.toastr.warning('There was an error on trying to complete. Please try again', 'Oops');
+    //         })
+    // }
 }

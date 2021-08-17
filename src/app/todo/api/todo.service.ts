@@ -32,8 +32,7 @@ export class TodoService {
         });
     }
 
-    removeTask(task: Task): Observable<any> {
-        // we could simulate an error from the REST API here
+    removeTask(task: Task): Observable<boolean> {
         return new Observable(subscriber => {
             // we could simulate an error from the REST API here
             const itWorked = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
@@ -47,19 +46,18 @@ export class TodoService {
         });
     }
 
-    completeTask(task: Task): Promise<any> {
-        // we could simulate an error from the REST API here
-        return new Promise((resolve, reject) => {
+    completeTask(task: Task): Observable<boolean> {
+        return new Observable(subscriber => {
+            // we could simulate an error from the REST API here
             const itWorked = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
             setTimeout(() => {
                 if (itWorked) {
-                    resolve(true);
+                    subscriber.next(true);
                 } else {
-                    reject(false);
+                    subscriber.error(false);
                 }
-            }, 500);
-
-        })
+            }, 1000);
+        });
     }
 
 }
