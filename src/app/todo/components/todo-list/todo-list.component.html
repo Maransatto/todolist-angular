@@ -1,7 +1,7 @@
 <div class="row g-2 mt-3">
-    <div class="col-12" *ngIf="tasks.length; else noRegistersFound">
+    <div class="col-12" *ngIf="(tasks | async)?.length; else noRegistersFound">
         <ul class="list-group">
-            <li *ngFor="let task of tasks"
+            <li *ngFor="let task of (tasks | async)"
                 class="list-group-item">
                 <app-todo-item [task]="task"></app-todo-item>
             </li>
