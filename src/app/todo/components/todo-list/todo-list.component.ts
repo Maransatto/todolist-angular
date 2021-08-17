@@ -15,7 +15,7 @@ import * as fromApp from 'src/app/state/app.state';
 })
 export class TodoListComponent implements OnInit {
 
-  tasks!: Observable<Task[]>;
+  tasks: Observable<Task[]> = this.store.select('tasks').pipe(map(tasksState => tasksState.tasks));
   // subscription = new Subscription();
 
   constructor(
@@ -24,7 +24,6 @@ export class TodoListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.tasks = this.store.select('tasks').pipe(map(tasksState => tasksState.tasks));
 
     // this.subscription.add(
     //   this.todoFacade.getFilteredTasks$().subscribe(tasks => this.tasks = tasks)
