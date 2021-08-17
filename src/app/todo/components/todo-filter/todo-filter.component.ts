@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import * as TodoActions from '../../../state/todo.actions'
   templateUrl: './todo-filter.component.html',
   styleUrls: ['./todo-filter.component.css']
 })
-export class TodoFilterComponent implements OnInit {
+export class TodoFilterComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
   subscription!: Subscription;
@@ -26,6 +26,12 @@ export class TodoFilterComponent implements OnInit {
     this.subscription = this.store.select('filter').subscribe(filterState => {
       this.createForm(filterState.filter.description, <TodoStatus>filterState.filter.status);
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   createForm(description: string, status: TodoStatus): void {
