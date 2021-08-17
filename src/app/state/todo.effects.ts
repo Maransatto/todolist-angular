@@ -37,7 +37,7 @@ export class TodoEffects {
                 }),
                 catchError(() => {
                     this.toastr.warning('There was an error on trying to add a new task. Please try again', 'Oops');
-                    return of(TodoActions.deleteTask({ task: actions.task })); // rolling back (as it is optimistic)
+                    return of(TodoActions.deleteTask(actions)); // rolling back (as it is optimistic)
                 })
             ))
     ));
@@ -51,10 +51,28 @@ export class TodoEffects {
                 map(() => {
                     this.toastr.success(`Task Removed: ${actions.task.description}`, 'Success');
                     this.ngxService.stop();
-                    return TodoActions.deleteTask({ task: actions.task }); // persists (as it is pessimistic)
+                    return TodoActions.deleteTask(actions); // persists (as it is pessimistic)
                 }),
                 catchError(() => {
                     this.toastr.warning('There was an error on trying to remove. Please try again', 'Oops');
+                    this.ngxService.stop();
+                    return EMPTY;
+                })
+            ))
+    ));
+
+    //pessimisteic
+    completeTask$ = createEffect(() => this.actions$.pipe(
+        ofType(TodoActions.startCompletingTask),
+        tap(() => this.ngxService.start()),
+        switchMap(actions => this.todoService.completeTask(actions.task)
+            .pipe(
+                map(() => {
+                    this.ngxService.stop();
+                    return TodoActions.completeTask(actions)
+                }),
+                catchError(() => {
+                    this.toastr.warning('There was an error on trying to complete. Please try again', 'Oops');
                     this.ngxService.stop();
                     return EMPTY;
                 })
