@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Task } from '../../models/task.model';
@@ -7,6 +7,7 @@ import { Task } from '../../models/task.model';
 
 import * as fromApp from 'src/app/state/app.state';
 import * as TodoActions from '../../../state/todo.actions';
+import { selectFilteredTasks } from 'src/app/state/todo.selectors';
 
 
 @Component({
@@ -16,7 +17,9 @@ import * as TodoActions from '../../../state/todo.actions';
 })
 export class TodoListComponent implements OnInit {
 
-  tasks$: Observable<Task[]> = this.store.select('tasks').pipe(map(tasksState => tasksState.tasks));
+  // tasks$: Observable<Task[]> = this.store.select('tasks').pipe(map(tasksState => tasksState.tasks));
+  tasks$: Observable<Task[]> = this.store.pipe(select(selectFilteredTasks));
+  // bookCollection$ = this.store.pipe(select(selectBookCollection));
   // subscription = new Subscription();
 
   constructor(
