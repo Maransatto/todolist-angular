@@ -6,7 +6,7 @@ import { TodoService } from "../todo/api/todo.service";
 
 import * as TodoActions from './todo.actions';
 
-Injectable()
+@Injectable()
 export class TodoEffects {
 
     fetchTasks$ = createEffect(() => this.actions$.pipe(
@@ -17,13 +17,12 @@ export class TodoEffects {
                     return { tasks: tasks }
                 }),
                 map(tasks => {
-                    return { type: TodoActions.TODO_DELETE_TASK, payload: tasks };
-                    // return TodoActions.setTasks(tasks);
+                    return TodoActions.setTasks(tasks);
                 }),
                 catchError(() => EMPTY)
             )
         )
-    ))
+    ));
 
     constructor(
         private actions$: Actions,
