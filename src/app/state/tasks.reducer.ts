@@ -15,13 +15,14 @@ export const tasksReducer = createReducer(
     initialState,
     on(TodoActions.setTasks, (state, { tasks }) => ({ ...state, tasks: [...tasks]})),
     on(TodoActions.addTask, (state, { task }) => ({ ...state, tasks: [...state.tasks, task] })),
-    on(TodoActions.deleteTask, (state, { taskId }) => {
+    on(TodoActions.deleteTask, (state, { task }) => {
         return {
             ...state,
-            tasks: state.tasks.filter(task => task.id !== taskId)
+            tasks: state.tasks.filter(taskState => taskState.id !== task.id)
         }
     }),
     on(TodoActions.fetchTasks, state => state),
+    on(TodoActions.startDeletingTask, state => state),
     on(TodoActions.storeTask, state => state),
     on(TodoActions.storeTaskSuccess, state => state)
 )
