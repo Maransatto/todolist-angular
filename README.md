@@ -36,6 +36,8 @@ https://dev-academy.com/angular-architecture-best-practices/#problems-of-scalabi
 
 ### Starting with NgRx
 
-- August 16 -> 8:29 PM
+- August 16 -> 8:29 PM until August 17 1:55 AM (5:26)
+
+> I've spent a few hours trying to find out this error, unfortunately: https://github.com/Maransatto/todolist-angular/commit/1e83cd2036b06e446e5a001bb2bfdee835378771
 
 I recommend to check the progress by the commit history.
