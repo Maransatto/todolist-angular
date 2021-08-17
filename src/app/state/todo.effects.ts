@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { createEffect, Actions, ofType } from "@ngrx/effects";
-import { EMPTY } from "rxjs";
+import { ToastrService } from "ngx-toastr";
+import { EMPTY, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 import { TodoService } from "../todo/api/todo.service";
 
@@ -24,8 +25,24 @@ export class TodoEffects {
         )
     ));
 
+    storeTask$ = createEffect(() => this.actions$.pipe(
+        ofType(TodoActions.addTask),
+        switchMap(actions => this.todoService.postNewTask(actions.task)
+            .pipe(
+                map(() => {
+                    this.toastr.success(`New Task Added: ${actions.task.description}`, 'Success');
+                    return TodoActions.storeTaskSuccess();
+                }),
+                catchError(() => {
+                    this.toastr.warning('There was an error on trying to add a new task. Please try again', 'Oops');
+                    return of(TodoActions.deleteTask({ taskId: actions.task.id }));
+                })
+            ))
+    ));
+
     constructor(
         private actions$: Actions,
-        private todoService: TodoService
+        private todoService: TodoService,
+        private toastr: ToastrService
     ) { }
 }
