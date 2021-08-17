@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { TodoFilter, TodoStatus } from '../../models/todo-filter';
-// import { TodoFacade } from '../../todo.facade';
 
 import * as fromApp from 'src/app/state/app.state';
 import * as TodoActions from '../../../state/todo.actions'
@@ -20,7 +19,6 @@ export class TodoFilterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private todoFacade: TodoFacade,
     private store: Store<fromApp.AppState>
   ) { }
 
@@ -39,7 +37,6 @@ export class TodoFilterComponent implements OnInit {
 
   submitFilter() {
     const { description, status } = this.form.value;
-    // this.todoFacade.changeFilter(description, status);
     this.store.dispatch(TodoActions.setFilter({ filter: new TodoFilter(description, status) }));
   }
 
