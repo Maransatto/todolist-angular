@@ -40,4 +40,6 @@ https://dev-academy.com/angular-architecture-best-practices/#problems-of-scalabi
 
 > I've spent a few hours trying to find out this error, unfortunately: https://github.com/Maransatto/todolist-angular/commit/1e83cd2036b06e446e5a001bb2bfdee835378771
 
+- August 17 -> 08:30 AM
+
 I recommend to check the progress by the commit history.
