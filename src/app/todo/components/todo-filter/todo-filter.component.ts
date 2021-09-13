@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { TodoFilter, TodoStatus } from '../../models/todo-filter';
 
 import * as fromApp from 'src/app/state/app.state';
 import * as TodoActions from '../../../state/todo.actions'
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-filter',
@@ -15,7 +16,8 @@ import * as TodoActions from '../../../state/todo.actions'
 export class TodoFilterComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
-  subscription!: Subscription;
+
+  private destroy$: Subject<void> = new Subject();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,15 +25,16 @@ export class TodoFilterComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.store.select('filter').subscribe(filterState => {
+    this.store.select('filter').pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(filterState => {
       this.createForm(filterState.filter.description, <TodoStatus>filterState.filter.status);
     });
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   createForm(description: string, status: TodoStatus): void {
