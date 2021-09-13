@@ -16,11 +16,11 @@ export const TODO_COMPLETE_TASK = '[Todo] Complete Task'
 
 export const setTasks = createAction(TODO_SET_TASKS, props<{ tasks: Task[] }>());
 export const fetchTasks = createAction(TODO_FETCH_TASKS);
-export const addTask = createAction(TODO_ADD_TASK, props<{ task: Task }>());
+export const addTask = createAction(TODO_ADD_TASK, props<{ description: string }>());
 export const storeTask = createAction(TODO_STORE_TASK, props<{ task: Task }>());
 export const storeTaskSuccess = createAction(TODO_STORE_TASK_SUCCESS)
 export const startDeletingTask = createAction(TODO_START_DELETING_TASK, props<{ task: Task }>());
-export const deleteTask = createAction(TODO_DELETE_TASK, props<{ task: Task }>());
+export const deleteTask = createAction(TODO_DELETE_TASK, props<{ taskId: number }>());
 export const setFilter = createAction(TODO_SET_FILTER, props<{ filter: TodoFilter }>());
 export const startCompletingTask = createAction(TODO_START_COMPLETING_TASK, props<{ task: Task, completed: boolean }>());
 export const completeTask = createAction(TODO_COMPLETE_TASK, props<{ task: Task, completed: boolean }>())

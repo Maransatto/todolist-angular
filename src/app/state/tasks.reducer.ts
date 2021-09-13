@@ -4,21 +4,34 @@ import * as TodoActions from './todo.actions';
 import { Task } from '../todo/models/task.model';
 
 export interface State {
-    tasks: Task[]
+    tasks: Task[],
+    newTaskId: number
 }
 
 export const initialState: State = {
-    tasks: []
+    tasks: [],
+    newTaskId: 0
 }
 
 export const tasksReducer = createReducer(
     initialState,
     on(TodoActions.setTasks, (state, { tasks }) => ({ ...state, tasks: [...tasks]})),
-    on(TodoActions.addTask, (state, { task }) => ({ ...state, tasks: [...state.tasks, task] })),
-    on(TodoActions.deleteTask, (state, { task }) => {
+    on(TodoActions.addTask, (state, { description }) => {
+        let newTaskId = 1;
+        if (state.tasks.length) {
+            newTaskId = state.tasks.reduce((acc, curr) => curr.id > acc.id ? curr : acc).id + 1;
+        }
         return {
             ...state,
-            tasks: state.tasks.filter(taskState => taskState.id !== task.id)
+            tasks: [...state.tasks, new Task(newTaskId, description, false) ],
+            newTaskId
+        }
+    }),
+    on(TodoActions.deleteTask, (state, { taskId }) => {
+        const deletingTaskId = taskId || state.newTaskId;
+        return {
+            ...state,
+            tasks: state.tasks.filter(taskState => taskState.id !== deletingTaskId)
         }
     }),
     on(TodoActions.completeTask, (state, { task, completed }) => {

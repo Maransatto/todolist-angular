@@ -17,9 +17,7 @@ export const selectFilteredTasks = createSelector(
                         (task.completed  && filter.status === TodoStatus.completed) ||
                         (!task.completed && filter.status === TodoStatus.toBeDone)
                    ) &&
-                   (task.description.toLowerCase().includes(filter.description?.toLowerCase()) || !filter.description) 
+                   (task.description?.toLowerCase().includes(filter.description?.toLowerCase()) || !filter.description) 
         })
     }
 );
-
-export const selectTaskIncrementId = createSelector(selectTasks, (taskState: { tasks: Task[] }) => taskState.tasks.length + 1);

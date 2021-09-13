@@ -20,7 +20,7 @@ export class TodoService {
         );
     }
 
-    postNewTask(task: Task): Observable<boolean> {
+    postNewTask(description: string, completed: false): Observable<boolean> {
         return new Observable(subscriber => {
             // we could simulate an error from the REST API here
             const itWorked = Math.floor(Math.random() * (1 - 0 + 1)) + 0;

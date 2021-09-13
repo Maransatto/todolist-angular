@@ -29,15 +29,21 @@ export class TodoEffects {
     // optimistic (once addTask DOES affects the state)
     storeTask$ = createEffect(() => this.actions$.pipe(
         ofType(TodoActions.addTask),
-        switchMap(actions => this.todoService.postNewTask(actions.task)
+        switchMap(actions => this.todoService.postNewTask(actions.description, false)
             .pipe(
                 map(() => {
-                    this.toastr.success(`New Task Added: ${actions.task.description}`, 'Success');
+                    this.toastr.success(`New Task Added: ${actions.description}`, 'Success');
+                    // I would actually get the new Id here and send it to the action storeTaskSuccess()
+                    // instead of generating a new Id on the addTask reducer.
                     return TodoActions.storeTaskSuccess();
                 }),
                 catchError(() => {
                     this.toastr.warning('There was an error on trying to add a new task. Please try again', 'Oops');
-                    return of(TodoActions.deleteTask(actions)); // rolling back (as it is optimistic)
+                    return of(TodoActions.deleteTask({ taskId: 0 })); // rolling back (as it is optimistic)
+                    // the question here is: 
+                    //    What should be the best approach here assuming that the new Task id from the action is 0 (zero)?
+                    //    should I store a new property called newTaskId on the state?
+                    //      That's what I did for now
                 })
             ))
     ));
@@ -51,7 +57,7 @@ export class TodoEffects {
                 map(() => {
                     this.toastr.success(`Task Removed: ${actions.task.description}`, 'Success');
                     this.ngxService.stop();
-                    return TodoActions.deleteTask(actions); // persists (as it is pessimistic)
+                    return TodoActions.deleteTask({ taskId: actions.task.id }); // persists (as it is pessimistic)
                 }),
                 catchError(() => {
                     this.toastr.warning('There was an error on trying to remove. Please try again', 'Oops');
