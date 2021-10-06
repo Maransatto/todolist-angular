@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TodoFacade } from '../../todo.facade';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../../../state/app.state';
+import * as TodoActions from '../../../state/todo.actions';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-todo-input',
@@ -13,7 +17,7 @@ export class TodoInputComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private todoFacade: TodoFacade
+    private store: Store<fromApp.AppState>
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +36,7 @@ export class TodoInputComponent implements OnInit {
     }
 
     const { description } = this.form.value;
-    this.todoFacade.addNewTask(description);
+    this.store.dispatch(TodoActions.addTask({ description}));
   }
 
 }

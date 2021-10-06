@@ -1,7 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { TodoInputComponent } from './todo/components/todo-input/todo-input.component';
 import { TodoFilterComponent } from './todo/components/todo-filter/todo-filter.component';
@@ -14,6 +16,9 @@ import { SignupComponent } from './user/component/signup/signup.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SigninComponent } from './user/component/signin/signin.component';
 import { TodoComponent } from './todo/components/todo/todo.component';
+
+import * as fromApp from './state/app.state';
+import { TodoEffects } from './state/todo.effects';
 
 
 @NgModule({
@@ -29,6 +34,9 @@ import { TodoComponent } from './todo/components/todo/todo.component';
   ],
   imports: [
     BrowserModule,
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([TodoEffects]),
+    StoreDevtoolsModule.instrument(),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

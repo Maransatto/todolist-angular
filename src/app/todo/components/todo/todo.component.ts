@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/user/models/user.model';
 import { UserFacade } from 'src/app/user/user.facade';
 
@@ -10,21 +11,23 @@ import { UserFacade } from 'src/app/user/user.facade';
 })
 export class TodoComponent implements OnInit, OnDestroy {
 
-  subscription = new Subscription();
   user!: User;
+
+  private destroy$: Subject<void> = new Subject();
 
   constructor(
     private userFacade: UserFacade
   ) { }
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.userFacade.getActiveUser$().subscribe(user => this.user = user)
-    );
+    this.userFacade.getActiveUser$().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(user => this.user = user);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   logout() {

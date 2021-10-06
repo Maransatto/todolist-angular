@@ -1,37 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TodoStatus } from '../../models/todo-filter';
-import { TodoFacade } from '../../todo.facade';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { TodoFilter, TodoStatus } from '../../models/todo-filter';
+
+import * as fromApp from 'src/app/state/app.state';
+import * as TodoActions from '../../../state/todo.actions'
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-filter',
   templateUrl: './todo-filter.component.html',
   styleUrls: ['./todo-filter.component.css']
 })
-export class TodoFilterComponent implements OnInit {
+export class TodoFilterComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
 
+  private destroy$: Subject<void> = new Subject();
+
   constructor(
     private formBuilder: FormBuilder,
-    private todoFacade: TodoFacade
+    private store: Store<fromApp.AppState>
   ) { }
 
   ngOnInit(): void {
-      this.createForm();
-      this.submitFilter();
+    this.store.select('filter').pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(filterState => {
+      this.createForm(filterState.filter.description, <TodoStatus>filterState.filter.status);
+    });
   }
 
-  createForm(): void {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  createForm(description: string, status: TodoStatus): void {
     this.form = this.formBuilder.group({
-      description: [null],
-      status: [TodoStatus.toBeDone]
+      description: [description],
+      status: [status]
     })
   }
 
   submitFilter() {
     const { description, status } = this.form.value;
-    this.todoFacade.changeFilter(description, status);
+    this.store.dispatch(TodoActions.setFilter({ filter: new TodoFilter(description, status) }));
   }
 
 }

@@ -32,4 +32,17 @@ https://dev-academy.com/angular-architecture-best-practices/#problems-of-scalabi
 
 > Total Time Spent: 11:47
 
+---
+
+### Starting with NgRx
+
+- August 16 -> 8:29 PM until August 17 1:55 AM (5:26)
+
+> I've spent a few hours trying to find out this error, unfortunately: https://github.com/Maransatto/todolist-angular/commit/1e83cd2036b06e446e5a001bb2bfdee835378771
+
+- August 17 -> 08:30 AM until 09:50 AM (1:20)
+- August 17 -> 10:30 AM until 12:40 (2:10)
+
+> For now I have migrated all Todo feature to NgRx instead of managing the state manually. But the Auth Feature has still the old structure.
+
 I recommend to check the progress by the commit history.
